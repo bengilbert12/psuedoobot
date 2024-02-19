@@ -26,6 +26,10 @@ class Bot(commands.Bot):
     async def hello(self, ctx: commands.Context):
         await ctx.send(f"Hello {ctx.author.name}!")
 
+    @commands.command()
+    async def discord(self, ctx: commands.Context):
+        await ctx.send("Join our discord server at https://discord.gg/UcFgW6A")
+
 
 bot = Bot()
 bot.run()
