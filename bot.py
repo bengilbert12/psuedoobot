@@ -1,15 +1,21 @@
 import os
-from twitchio.ext import commands
+
+import twitchio
 from dotenv import load_dotenv
+from twitchio.ext import commands, pubsub
 
 load_dotenv()
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
+
+client = twitchio.Client(token=ACCESS_TOKEN)
+client.pubsub = pubsub.PubSubPool(client)
 
 
 class Bot(commands.Bot):
 
     def __init__(self):
         super().__init__(token=ACCESS_TOKEN, prefix="!", initial_channels=["psuedoo"])
+        self.sub = pubsub.PubSubPool(self)
 
     async def event_ready(self):
         print(f"Logged in as | {self.nick}")
@@ -33,3 +39,11 @@ class Bot(commands.Bot):
 
 bot = Bot()
 bot.run()
+
+
+@client.event()
+async def event_pub_sub_channel_points(event):
+    event.channel.send("Something happened")
+
+
+# TODO: Add the async def main() at the bottom of https://twitchio.dev/en/stable/exts/pubsub.html#a-quick-example
