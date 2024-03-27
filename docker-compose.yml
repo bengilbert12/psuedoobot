@@ -2,3 +2,4 @@ services:
   bot:
     build: .
     container_name: psuedoobot
+    restart: unless-stopped
