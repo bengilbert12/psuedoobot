@@ -1,15 +1,21 @@
 import os
-from twitchio.ext import commands
+
 from dotenv import load_dotenv
+from twitchio.ext import commands
 
 load_dotenv()
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
+PREFIX = os.getenv("PREFIX", "?")
 
 
 class Bot(commands.Bot):
 
     def __init__(self):
-        super().__init__(token=ACCESS_TOKEN, prefix="!", initial_channels=["psuedoo"])
+        super().__init__(
+            token=ACCESS_TOKEN,
+            prefix=PREFIX,
+            initial_channels=["psuedoo"],
+        )
 
     async def event_ready(self):
         print(f"Logged in as | {self.nick}")
@@ -29,6 +35,10 @@ class Bot(commands.Bot):
     @commands.command()
     async def discord(self, ctx: commands.Context):
         await ctx.send("Join our discord server at https://discord.gg/UcFgW6A")
+
+    @commands.command()
+    async def ping(self, ctx):
+        await ctx.send("Pong")
 
 
 bot = Bot()
