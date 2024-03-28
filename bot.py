@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from twitchio.ext import commands
 
 load_dotenv()
-ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
+ACCESS_TOKEN = os.getenv("ACCESS_TOKEN", "None")
 PREFIX = os.getenv("PREFIX", "?")
 
 
