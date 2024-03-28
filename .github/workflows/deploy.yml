@@ -7,7 +7,14 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo "ACCESS_TOKEN=${{ secrets.ENV_TWITCH_TOKEN }}"
+
       - name: Run Docker Compose
         run: docker-compose up -d --force-recreate --build
 
