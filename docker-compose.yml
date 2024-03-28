@@ -3,5 +3,5 @@ services:
     build: .
     container_name: psuedoobot
     restart: unless-stopped
-    env:
-      - PREFIX: "!"
+    environment:
+      - PREFIX="!"
