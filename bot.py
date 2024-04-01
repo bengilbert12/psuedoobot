@@ -6,6 +6,10 @@ from twitchio.ext import commands
 load_dotenv()
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN", "None")
 PREFIX = os.getenv("PREFIX", "?")
+SOCIAL_LINKS = {
+    "Discord": "https://discord.gg/UcFgW6A",
+    "Instagram": "https://www.instagram.com/psuedoo_ttv/",
+}
 
 
 class Bot(commands.Bot):
@@ -34,7 +38,19 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def discord(self, ctx: commands.Context):
-        await ctx.send("Join our discord server at https://discord.gg/UcFgW6A")
+        await ctx.send("Join our discord server at {SOCIAL_LINKS['Discord']}")
+
+    @commands.command(aliases=["insta", "ig"])
+    async def instagram(self, ctx: commands.Context):
+        await ctx.send(f"Come follow on instagram here: {SOCIAL_LINKS['Instagram']}")
+
+    @commands.command()
+    async def socials(self, ctx: commands.Context):
+        social_message = ""
+        for name, link in SOCIAL_LINKS.items():
+            social_message += f"{name} | {link} | "
+
+        await ctx.send(social_message)
 
     @commands.command()
     async def ping(self, ctx):
