@@ -38,7 +38,7 @@ class Bot(commands.Bot):
 
     @commands.command()
     async def discord(self, ctx: commands.Context):
-        await ctx.send("Join our discord server at {SOCIAL_LINKS['Discord']}")
+        await ctx.send(f"Join our discord server at {SOCIAL_LINKS['Discord']}")
 
     @commands.command(aliases=["insta", "ig"])
     async def instagram(self, ctx: commands.Context):
