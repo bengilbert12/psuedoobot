@@ -17,5 +17,5 @@ jobs:
           echo "PREFIX=${{ vars.PREFIX }}" >> .env
 
       - name: Run Docker Compose
-        run: docker-compose up -d --force-recreate --build
+        run: docker compose up -d --force-recreate --build
 
