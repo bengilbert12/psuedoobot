@@ -9,6 +9,7 @@ PREFIX = os.getenv("PREFIX", "?")
 SOCIAL_LINKS = {
     "Discord": "https://discord.gg/UcFgW6A",
     "Instagram": "https://www.instagram.com/psuedoo_ttv/",
+    "Youtube": "https://youtube.com/@psuedoo",
 }
 
 
@@ -43,6 +44,10 @@ class Bot(commands.Bot):
     @commands.command(aliases=["insta", "ig"])
     async def instagram(self, ctx: commands.Context):
         await ctx.send(f"Come follow on instagram here: {SOCIAL_LINKS['Instagram']}")
+
+    @commands.command(aliases=["yt"])
+    async def youtube(self, ctx: commands.Context):
+        await ctx.send(f"Sub to me on youtube! {SOCIAL_LINKS['Youtube']}")
 
     @commands.command()
     async def socials(self, ctx: commands.Context):
