@@ -61,6 +61,12 @@ class Bot(commands.Bot):
     async def ping(self, ctx):
         await ctx.send("Pong")
 
+    @commands.command(aliases=["pom"])
+    async def pomodoro(self, ctx):
+        await ctx.send(
+            "We are using a Pomodoro Technique for time management. Psuedoo is not reading chat during the work time. He will readover chat during a break."
+        )
+
 
 bot = Bot()
 bot.run()
