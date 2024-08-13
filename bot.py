@@ -64,7 +64,7 @@ class Bot(commands.Bot):
     @commands.command(aliases=["pom"])
     async def pomodoro(self, ctx):
         await ctx.send(
-            "We are using a Pomodoro Technique for time management. Psuedoo is not reading chat during the work time. He will readover chat during a break."
+            "We are using a Pomodoro Technique for time management. Psuedoo is not reading chat during the work time. He will readover chat during a break. Read more about the technique here: https://en.wikipedia.org/wiki/Pomodoro_Technique"
         )
 
 
