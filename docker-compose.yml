@@ -1,6 +1,9 @@
 services:
-  bot:
+  psuedoobot:
     build: .
     container_name: psuedoobot
     restart: unless-stopped
+    command: python3 -u src/bot.py
+    volumes:
+      - ./.env:/code/.env
     
