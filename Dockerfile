@@ -1,9 +1,9 @@
 FROM python:latest
 
-ADD bot.py .
-ADD .env .
-ADD requirements.txt .
+WORKDIR /code
 
-RUN pip install -r requirements.txt
+COPY requirements.txt .
 
-CMD ["python", "./bot.py"]
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY src/ src/.
