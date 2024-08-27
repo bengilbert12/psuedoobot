@@ -10,6 +10,7 @@ PREFIX = os.getenv("PREFIX", "?")
 
 initial_cogs = [
     "cogs.basic",
+    "cogs.psuedoo",
 ]
 
 
@@ -19,7 +20,9 @@ class Bot(commands.Bot):
         super().__init__(
             token=ACCESS_TOKEN,
             prefix=PREFIX,
-            initial_channels=["psuedoo"],
+            initial_channels=[
+                "psuedoo",
+            ],
         )
 
         for cog in initial_cogs:
