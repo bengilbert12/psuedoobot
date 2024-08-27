@@ -6,11 +6,11 @@ from twitchio.ext import commands
 load_dotenv()
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN", "None")
 PREFIX = os.getenv("PREFIX", "?")
-SOCIAL_LINKS = {
-    "Discord": "https://discord.gg/UcFgW6A",
-    "Instagram": "https://www.instagram.com/psuedoo_ttv/",
-    "Youtube": "https://youtube.com/@psuedoo",
-}
+
+
+initial_cogs = [
+    "cogs.basic",
+]
 
 
 class Bot(commands.Bot):
@@ -22,6 +22,12 @@ class Bot(commands.Bot):
             initial_channels=["psuedoo"],
         )
 
+        for cog in initial_cogs:
+            try:
+                self.load_module(cog)
+            except Exception as e:
+                print(f"Failed to load cog {cog}.", e)
+
     async def event_ready(self):
         print(f"Logged in as | {self.nick}")
         print(f"User id is | {self.user_id}")
@@ -32,40 +38,6 @@ class Bot(commands.Bot):
         print(f"{message.author.name}: {message.content}")
 
         await self.handle_commands(message)
-
-    @commands.command()
-    async def hello(self, ctx: commands.Context):
-        await ctx.send(f"Hello {ctx.author.name}!")
-
-    @commands.command()
-    async def discord(self, ctx: commands.Context):
-        await ctx.send(f"Join our discord server at {SOCIAL_LINKS['Discord']}")
-
-    @commands.command(aliases=["insta", "ig"])
-    async def instagram(self, ctx: commands.Context):
-        await ctx.send(f"Come follow on instagram here: {SOCIAL_LINKS['Instagram']}")
-
-    @commands.command(aliases=["yt"])
-    async def youtube(self, ctx: commands.Context):
-        await ctx.send(f"Sub to me on youtube! {SOCIAL_LINKS['Youtube']}")
-
-    @commands.command()
-    async def socials(self, ctx: commands.Context):
-        social_message = ""
-        for name, link in SOCIAL_LINKS.items():
-            social_message += f"{name} | {link} | "
-
-        await ctx.send(social_message)
-
-    @commands.command()
-    async def ping(self, ctx):
-        await ctx.send("Pong")
-
-    @commands.command(aliases=["pom"])
-    async def pomodoro(self, ctx):
-        await ctx.send(
-            "We are using a Pomodoro Technique for time management. Psuedoo is not reading chat during the work time. He will readover chat during a break. Read more about the technique here: https://en.wikipedia.org/wiki/Pomodoro_Technique"
-        )
 
 
 bot = Bot()
