@@ -86,7 +86,7 @@ class TinyDatabase(ProviderInterface):
 
     def get_streamer_custom_commands(self, streamer: str) -> dict:
         Command = Query()
-        return self.commands_table.get(Command.streamer == streamer)
+        return self.commands_table.search(Command.streamer == streamer)
 
     def get_command(self, streamer: str, label: str) -> dict:
         Command = Query()
