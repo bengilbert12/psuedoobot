@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from twitchio.ext import commands
 
-from utils.db import custom_command_exists, get_custom_command_response, init_db
+from utils.db import Database, TinyDatabase
 
 load_dotenv()
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN", "None")
@@ -27,7 +27,8 @@ class Bot(commands.Bot):
             initial_channels=streamers,
         )
 
-        init_db(streamers)
+        self.db = Database(provider=TinyDatabase(filename="db.json"))
+        self.db.populate_streamers(streamers)
 
         for cog in initial_cogs:
             try:
@@ -50,11 +51,11 @@ class Bot(commands.Bot):
         try:
             custom_command_label = message.content.split(PREFIX)[1]
 
-            if not custom_command_exists(streamer, custom_command_label):
+            if not self.db.custom_command_exists(streamer, custom_command_label):
                 await self.handle_commands(message)
                 return
 
-            response = get_custom_command_response(
+            response = self.db.get_custom_command_response(
                 streamer=streamer, label=custom_command_label
             )
 
