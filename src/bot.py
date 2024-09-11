@@ -1,3 +1,4 @@
+import logging
 import os
 
 from dotenv import load_dotenv
@@ -8,6 +9,14 @@ from utils.db import Database, TinyDatabase
 load_dotenv()
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN", "None")
 PREFIX = os.getenv("PREFIX", "?")
+logging.basicConfig(
+    level=logging.INFO,
+    filename="bot.log",
+    encoding="utf-8",
+    format="%(asctime)s - {levelname} - %(name)s - %(message)s",
+    style="%",
+    datefmt="%Y-%m-%d %H:%M",
+)
 
 
 initial_cogs = [
@@ -34,17 +43,17 @@ class Bot(commands.Bot):
             try:
                 self.load_module(cog)
             except Exception as e:
-                print(f"Failed to load cog {cog}.", e)
+                logging.warning("Failed to load cog %s", e)
 
     async def event_ready(self):
-        print(f"Logged in as | {self.nick}")
-        print(f"User id is | {self.user_id}")
+        logging.info("Logged in as %s", self.nick)
+        logging.info("User id is %s", self.user_id)
 
     async def event_message(self, message):
         if message.echo:
             return
 
-        print(f"{message.author.name}: {message.content}")
+        logging.info("%s: %s", message.author.name, message.content)
 
         streamer = message.channel.name
 
