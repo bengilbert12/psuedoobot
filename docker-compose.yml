@@ -6,4 +6,13 @@ services:
     command: python3 -u src/bot.py
     volumes:
       - ./.env:/code/.env
-    
+
+  postgres_db:
+    image: postgres
+    restart: unless-stopped
+    volume:
+      - ./data/pgdb:/data/pgdb
+    container_name: postgresdb-container
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bot_data
